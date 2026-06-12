@@ -705,10 +705,85 @@
   <section style="background:var(--bg);">
     <div class="container">
       <div class="about-grid">
-        <div class="about-img-stack reveal">
-          <img src="img/fleetservice.png" alt="Fleet Maintenance" class="about-img-main"/>
-          <div class="about-img-badge"><div class="about-img-badge-val">01</div><div class="about-img-badge-label">Service<br>Division</div></div>
-        </div>
+        <div class="about-slider reveal">
+
+  <div class="slides">
+    
+    <div class="slide active">
+      <img src="img/fleetonoff1.png" alt="Fleet Maintenance">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">01</div>
+        <div class="about-img-badge-label">Fleet Maintenance<br>On & Off Site</div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/breakdown.png" alt="Breakdown">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">02</div>
+        <div class="about-img-badge-label">Mobile Workshop 4x4 Trucks<br>Breakdown</div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/elecdiag.png" alt="Electronic Diagnostics">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">03</div>
+        <div class="about-img-badge-label">Electronic Diagnostics<br>Service</div>
+      </div>
+    </div>
+
+	<div class="slide">
+      <img src="img/comps.png" alt="Components Repair">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">04</div>
+        <div class="about-img-badge-label">Electronic Components<br>Repair</div>
+      </div>
+    </div>
+	
+	
+	<div class="slide">
+      <img src="img/mechrepair.png" alt="Mechanic & Electrrical Repair">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">05</div>
+        <div class="about-img-badge-label">General Mechanic and Electrical<br>Repair</div>
+      </div>
+    </div>
+	
+	
+	<div class="slide">
+      <img src="img/mechfabric.png" alt="Engineering and fabrication">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">06</div>
+        <div class="about-img-badge-label">Mechanical Engineering<br>& Fabrication</div>
+      </div>
+    </div>
+	
+	<div class="slide">
+      <img src="img/lineboring.png" alt="Line Boring">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">07</div>
+        <div class="about-img-badge-label">On-Site Line Boring<br>Service</div>
+      </div>
+    </div>
+	
+	<div class="slide">
+      <img src="img/welding.png" alt="Welding">
+      <div class="about-img-badge">
+        <div class="about-img-badge-val">08</div>
+        <div class="about-img-badge-label">Welding & Re-Bushing <br>Service</div>
+      </div>
+    </div>
+	
+	
+
+  </div>
+
+  <!-- Optional controls -->
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+
+</div>
         <div class="reveal reveal-delay-1">
           <span class="service-tag">Workshop</span>
           <h2 class="heading">General Mechanical &amp; <em>Fleet Maintenance</em></h2>
@@ -1289,5 +1364,83 @@
 </a>
 
 <script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("cYqCtY1lKqsd5bJQJ");
+
+function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const company = document.getElementById('fcompany').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const service = document.getElementById('fservice').value;
+    const message = document.getElementById('fmessage').value.trim();
+
+    if (!name || !email || !message) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    emailjs.send(
+        "service_erw3wgj",
+        "template_arfs1no",
+        {
+            name: name,
+            company: company,
+            email: email,
+            phone: phone,
+            service: service,
+            message: message
+        }
+    )
+    .then(function() {
+        document.getElementById('formContainer').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+    })
+    .catch(function(error) {
+        console.error("EmailJS Error:", error);
+        alert("Failed to send inquiry. Please try again.");
+    });
+}
+
+function resetForm() {
+    document.getElementById('formContainer').style.display = 'block';
+    document.getElementById('formSuccess').style.display = 'none';
+
+    document.getElementById('fname').value = '';
+    document.getElementById('fcompany').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fphone').value = '';
+    document.getElementById('fservice').value = '';
+    document.getElementById('fmessage').value = '';
+}
+</script>
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides.forEach(slide => slide.classList.remove("active"));
+  slides[index].classList.add("active");
+}
+
+document.querySelector(".next").addEventListener("click", () => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+});
+
+// auto slide (optional)
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}, 4000);
+</script>
+
 </body>
 </html>
